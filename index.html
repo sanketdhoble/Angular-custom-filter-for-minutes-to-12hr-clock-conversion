@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="style.css">
+
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.min.js"></script>
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="app.js"></script>
+</head>
+
+<body class="container" ng-app="App" ng-controller="mainController">
+
+  <div class="col-sm-6 div_box">
+    <div class="col-sm-12">
+      <h4 style="color:blue">Push Multiple sessions of timings</h4>
+      <h4><b>Angular Custom Filter</b> to convert given minutes into hours of the day!!</h4>
+    </div>
+    <div class="col-sm-12">
+      <table class="table table-bordered table-hover">
+        <thead>
+          <tr>
+            <th width="25%">Day</th>
+            <th width="30%">From Time</th>
+            <th width="30%">To Time</th>
+            <th width="8%"> </th>
+            <th width="7%">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="k in clinicWorkingSchedules">
+            <td>{{k.workingDay}}</td>
+            <td>
+              <ul ng-repeat="k in k.workingHours">
+                <p>
+                  <select class="form-control" style="width: 100px;margin-left: -43px;" ng-model="k.fromTime" ng-options="time as (time|myFormat:'hr') +':'+ ( time | myFormat:'min') for time in minute" ng-selected="k.fromTime == time">
+                  </select>
+                </p>
+              </ul>
+
+            </td>
+            <td>
+              <ul ng-repeat="k in k.workingHours">
+                <p>
+                  <select class="form-control" style="width: 100px;margin-left: -43px;" ng-model="k.toTime" ng-options="time as (time | myFormat:'hr') +':'+ ( time | myFormat:'min') for time in minute " ng-selected="k.toTime == time">
+                    <!-- <option value="">{{k.toTime |  myFormat:'hr'}}:{{k.toTime |  myFormat:'min'}}</option> -->
+                  </select>
+                </p>
+              </ul>
+
+            </td>
+            <td>
+              <ul ng-repeat="k in k.workingHours">
+                <p style="margin-left: -20px;margin-top:15px;"> <a href="" ng-click="removeRow($parent.$index,$index)"><b style="color:red;margin-top:35px;">X</b></a></p>
+              </ul>
+            </td>
+            <td>
+              <input type="submit" value="Add" ng-click="addRow($index)" class="btn btn-sm btn-primary" />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</body>
+
+</html>
